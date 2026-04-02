@@ -273,7 +273,7 @@ otlp = {
                     for e in data.get('events', [])
                 ],
                 'status': {
-                    'code': 2 if data.get('status') == 'ERROR' else 1
+                    'code': 2 if data.get('status') == 'ERROR' else 0
                 }
             }]
         }]

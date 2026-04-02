@@ -51,10 +51,10 @@ func (tp *TracerProvider) HTTPMiddleware(next http.Handler) http.Handler {
 			trace.WithSpanKind(trace.SpanKindServer),
 			trace.WithAttributes(
 				semconv.HTTPRequestMethodKey.String(r.Method),
-				semconv.URLPath(r.URL.Path),
-				semconv.URLScheme(r.URL.Scheme),
-				semconv.ServerAddress(r.Host),
-				semconv.UserAgentOriginal(r.UserAgent()),
+				attribute.String("url.path", r.URL.Path),
+				attribute.String("url.scheme", r.URL.Scheme),
+				attribute.String("server.address", r.Host),
+				attribute.String("user_agent.original", r.UserAgent()),
 				attribute.String("apex.service", tp.config.ServiceName),
 			),
 		)

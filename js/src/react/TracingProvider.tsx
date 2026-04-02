@@ -80,19 +80,19 @@ export function useSpan(
 ): Span | null {
   const ctx = useContext(TracingContext);
   const spanRef = useRef<Span | null>(null);
+  const nameRef = useRef(name);
+  const attributesRef = useRef(attributes);
 
   useEffect(() => {
     if (ctx) {
-      spanRef.current = ctx.tracer.startSpan(name, attributes);
+      spanRef.current = ctx.tracer.startSpan(nameRef.current, attributesRef.current);
     }
     return () => {
       if (spanRef.current && ctx) {
         ctx.tracer.endSpan(spanRef.current);
       }
     };
-    // Only run on mount/unmount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [ctx]);
 
   return spanRef.current;
 }

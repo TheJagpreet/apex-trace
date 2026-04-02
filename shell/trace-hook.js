@@ -50,9 +50,8 @@ class HookTracer {
   }
 
   _timestampNs() {
-    const [sec, nsec] = process.hrtime();
-    const ms = Date.now();
-    return String(ms) + '000000';
+    const hrtime = process.hrtime.bigint();
+    return String(hrtime);
   }
 
   /**
